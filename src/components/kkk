@@ -1,0 +1,80 @@
+<template>
+  <div class="hello">
+    <!-- (a) -->
+    <h1>{{ msg }}</h1>
+    <a class="btn active" href="./components/ProductCardPanel" role="button">Link</a>
+    <div class="row">
+      <!-- (b) -->
+      <div
+        class="col-sm-6 col-md-3 col-xl-2"
+        v-for="(result, idx, price) in processedResults"
+        :key="result.id"
+      >
+        <!-- (c) -->
+        <a class="card" :href="result.post_url">
+          <img class="card-img" :src="result.url" :alt="result.post_url">
+          <p>book_{{idx}}</p>
+          <p>${{idx+1}}.00{{price}}</p>
+          <button type="button" class="btn-info" >Buy now</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+const axios = require("axios");
+export default {
+  name: "ProductCard",
+  props: {
+    msg: String
+  },
+  data() {
+    return {
+      info: null,
+      results: []
+    };
+  },
+  // (f)
+  mounted: function() {
+    {
+      axios
+        .get("https://api.coindesk.com/v1/bpi/currentprice.json")
+        .then(response => (this.info = response.data.bpi));
+
+      axios
+        .get("https://picsum.photos/list")
+        .then(response => (this.results = response.data));
+    }
+  },
+  computed: {
+    // (g)
+    processedResults: function() {
+      let results = this.results;
+      for (let i = 0; i < results.length; i++) {
+        results[i].url = "https://picsum.photos/300/200?image=" + results[i].id;
+      }
+      return results;
+    }
+  }
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+a {
+  color: #42b983;
+}
+</style>
+
+{
+"format":"jpeg",
+"width":5616,
+"height":3744,
+"filename":"0000_xxxx.jpeg",
+"id":0,
+"author":"xxxxxxxx",
+"author_url":"https://unsplash.com/@xxxxx",
+"post_url":"https://unsplash.com/photos/xxxxx",
+"url":"https://picsum.photos/300/200?image=0"
+}
