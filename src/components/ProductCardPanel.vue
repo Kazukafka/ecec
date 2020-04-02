@@ -22,22 +22,15 @@
           <img src="images/photo1.jpeg">
           <p>Never let me go</p>
           <p>$12.90</p>
+          <button
+            :title="removeFromFavouriteLabel"
+            v-show="product.isFavourite"
+            @click="removeFromFavourite(product.id)"
+            class="button is-small"
+          >
         </div>
-        <div class="contents-item">
-          <img src="https://s3-ap-northeast-1.amazonaws.com/progate/shared/images/lesson/html/study/php.svg">
-          <p>Remains of the day</p>
-          <p>$5.98</p>
-        </div>
-        <div class="contents-item">
-          <img src="https://s3-ap-northeast-1.amazonaws.com/progate/shared/images/lesson/html/study/ruby.svg">
-          <p>1Q84</p>
-          <p>$23.80</p>
-        </div>
-        <div class="contents-item">
-          <img src="https://s3-ap-northeast-1.amazonaws.com/progate/shared/images/lesson/html/study/swift.svg">
-          <p>Wind-Up Bird Chronicle</p>
-          <p>$11.99</p>
-          <button></button>
+        
+
         </div>
       </div>
 

@@ -1,8 +1,8 @@
 <template>
 <div class="CategoryPage">
-  Category page for {{this.$route.params.categoryAlias}}
+  <h2>Category page for {{this.$route.params.categoryAlias}}</h2>
   <ProductPanel :categoryAlias="this.$route.params.categoryAlias" />
-  </div>
+</div>
 </template>
 
 <script>

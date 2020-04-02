@@ -1,6 +1,9 @@
 <template>
 <div class="header">
-  Header
+  E-Commerce Platform
+  <b-link to="/">HOME</b-link>
+  <b-link to="/cart">ShoppingCart</b-link>
+
 </div>
 </template>
 
