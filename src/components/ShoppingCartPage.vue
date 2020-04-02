@@ -30,9 +30,7 @@
     </tr>
   </table>
 
-  <b-button variant="success" size="lg" @click="orderNow"
-  v-if="this.items.length"
-  >Order Now!</b-button>
+  <b-button variant="success" size="lg" @click="orderNow" v-if="this.items.length">Order Now!</b-button>
 
 </div>
 </template>
@@ -70,8 +68,11 @@ export default {
       })
     },
 
-    reset: function () {
-      this.$router.go({path: this.$router.currentRoute.path, force: true})
+    reset: function() {
+      this.$router.go({
+        path: this.$router.currentRoute.path,
+        force: true
+      })
     }
   }
 }
