@@ -30,6 +30,8 @@
     </tr>
   </table>
 
+  
+
   <b-button variant="success" size="lg" @click="orderNow" v-if="this.items.length">Order Now!</b-button>
 
 </div>
