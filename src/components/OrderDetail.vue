@@ -1,25 +1,25 @@
 <template>
-<div class="shopping-cart-page">
-  <h2>ShoppingCart</h2>
+<div class="OrderDetail">
+  <h2>Order Details</h2>
   <table class="table">
     <tr>
+      <th>CartID</th>
       <th>Product</th>
       <th>Price</th>
       <th>qty</th>
       <th>Amount</th>
-      <th>Actions</th>
+
     </tr>
 
-    <tr v-for="(item, index) in this.items" :key="item.productId + '_' + index">
+    <tr v-for="(item, cart, index) in this.$root.$data.cart.items" :key="item.productId + '_' + index">
+      <td>{{cart.id}}</td>
       <td>
         <img :src="item.optionImage" class="option-image" />
       </td>
       <td>{{ item.price }}</td>
       <td>{{ item.qty }}</td>
       <td>{{ item.total }}</td>
-      <td>
-        <b-button variant="danger" @click="removeItem(index)">Remove</b-button>
-      </td>
+
     </tr>
     <tr class="total-row">
       <td>TOTAL:</td>
@@ -27,21 +27,23 @@
       <td></td>
       <td>{{ total }}</td>
       <td></td>
+      <td></td>
     </tr>
   </table>
-
-  <b-button variant="success" size="lg" @click="orderNow" v-if="this.items.length">Order Now!</b-button>
 
 </div>
 </template>
 
 <script>
-import axios from "axios";
+//import axios from "axios";
 export default {
-  name: 'ShoppingCartPage',
+  name: 'OrderListing',
   computed: {
     items: function() {
       return this.$root.$data.cart.items || [];
+    },
+    carts: function() {
+      return this.$root.$data.carts || [];
     },
     total: function() {
       let sum = 0
@@ -59,12 +61,10 @@ export default {
       this.$root.$data.saveCart();
     },
 
-    orderNow: function() {
-      let data = this.$root.$data
-
-      axios.post("https://euas.person.ee/user/carts/" + this.$root.$data.cart.id + "/orders/",
-        this.$root.$data.cart).then(function() {
-        data.reinitCart();
+    reset: function() {
+      this.$router.go({
+        path: this.$router.currentRoute.path,
+        force: true
       })
     }
   }

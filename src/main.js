@@ -7,9 +7,12 @@ import VueRouter from 'vue-router'
 import MainPage from './components/MainPage.vue'
 import ProductPage from './components/ProductPage.vue'
 import Category from './components/Category.vue'
-import shoppingCart from './components/shoppingCart.vue'
+
 import axios from "axios";
 import ShoppingCartPage from './components/ShoppingCartPage.vue'
+import OrderListing from './components/OrderListing.vue'
+import OrderDetail from './components/OrderDetail.vue'
+
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
@@ -20,10 +23,7 @@ const router = new VueRouter({
       path: '/',
       component: MainPage
     },
-    {
-      path: '/shoppingCart',
-      component: shoppingCart
-    },
+
     {
       path: '/categories/:categoryAlias',
       component: Category
@@ -35,6 +35,14 @@ const router = new VueRouter({
     {
       path: '/cart',
       component: ShoppingCartPage
+    },
+    {
+      path: '/order',
+      component: OrderListing
+    },
+    {
+      path: '/order/cartId',
+      component: OrderDetail
     }
   ],
   mode: 'history'
@@ -43,7 +51,7 @@ const router = new VueRouter({
 axios.defaults.headers.common['Authorization'] = 'Bearer pasuwaado135@gmail.com';
 
 if (localStorage.cartId) {
-  axios.get("https://euas.person.ee/user/carts" + localStorage.cartId).then(response => {
+  axios.get("https://euas.person.ee/user/carts/" + localStorage.cartId).then(response => {
     new Vue({
       render: h => h(App),
       router: router,
@@ -53,16 +61,16 @@ if (localStorage.cartId) {
           axios.put("https://euas.person.ee/user/carts/" + this.cart.id, this.cart)
         },
         reinitCart() {
-          axios.post("https://euas.person.ee/user/carts").then(response => {
+          axios.post("https://euas.person.ee/user/carts/").then(response => {
             localStorage.cartId = response.data.id
             this.cart = response.data;
-          })
+          });
         }
       }
     }).$mount('#app')
   });
 } else {
-  axios.post("https://euas.person.ee/user/carts").then(response => {
+  axios.post("https://euas.person.ee/user/carts/").then(response => {
     new Vue({
       render: h => h(App),
       router: router,
@@ -72,8 +80,18 @@ if (localStorage.cartId) {
           axios.put("https://euas.person.ee/user/carts/" + this.cart.id, this.cart)
         },
         reinitCart() {
-          axios.post("https://euas.person.ee/user/carts").then(response => {
+          axios.post("https://euas.person.ee/user/carts/").then(response => {
             localStorage.cartId = response.data.id
+            this.cart = response.data;
+          });
+          axios.post("https://euas.person.ee/user/carts/" + this.cart.id + "/orders/").then(response => {
+            localStorage.cartId = response.data.id
+            this.cart = response.data;
+          });
+        },
+        getOrders(){
+          axios.get("https://euas.person.ee/user/orders/").then(response => {
+            localStorage.orderId = response.data.id
             this.cart = response.data;
           })
         }
