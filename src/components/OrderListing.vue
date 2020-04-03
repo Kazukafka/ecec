@@ -3,18 +3,18 @@
   <h2>Your Orders</h2>
   <table class="table">
     <tr>
-      <th>CartId</th>
+      <th>OrderId</th>
       <th>TotalPrice</th>
       <th>Action</th>
     </tr>
 
-    <tr v-for="(item, index) in this.items" :key="item.productId + '_' + index">
-     <td>{{items.id}}</td>
-     <td>{{items.price}}</td>
-     <td>
-       <b-link variant="dark" @click="getOrders(index)" to="./order/cartId">Detail</b-link>
-     </td>
-   </tr>
+    <tr v-for="(order, index) in this.orders" :key="order.id">
+      <td>{{order.id}}</td>
+      <td>{{total}}</td>
+      <td>
+        <b-button variant="dark" @click="getOrders(index)" to="./order/cartId">Detail</b-button>
+      </td>
+    </tr>
   </table>
 
 
@@ -26,27 +26,16 @@
 import axios from "axios";
 export default {
   name: 'OrderListing',
-  computed: {
-    items: function() {
-      return this.$root.$data.cart.items || [];
-    },
-    carts: function() {
-      return this.$root.$data.carts || [];
-    },
-    total: function() {
-      let sum = 0
-      for (const item of this.items) {
-        sum += item.total
-      }
-      return sum
+  data: function() {
+    return {
+      orders: []
     }
   },
-  methods: {
-  getOrders: function() {
-    axios.post("https://euas.person.ee/user/carts/" + this.$root.$data.cart.id + "/orders/",
-      this.$root.$data.cart).then(function() {
-    })
-  }
+  mounted() {
+    axios.get("https://euas.person.ee/user/orders")
+      .then(response => {
+        this.orders = response.data;
+      });
   }
 }
 </script>
