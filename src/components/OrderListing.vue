@@ -4,17 +4,24 @@
   <table class="table">
     <tr>
       <th>OrderId</th>
-      <th>TotalPrice</th>
+      <th>Products Quantity</th>
       <th>Action</th>
     </tr>
 
-    <tr v-for="(cart, order) in this.orders" :key="order.id">
-      <td>{{order}}</td>
-      <td>{{order.total}}</td>
+    <tr v-for="(order, index) in this.orders" :key="order.id">
+      <td>{{index}}</td>
+        <div v-for="item in order.items" :key="item.productId">
+        <td>
+          <img :src="item.optionImage" class="option-image" />
+        </td>
+        <td>Price : {{ item.price }}</td>
+        <td>Quantity : {{ item.qty }}</td>
+        </div>
       <td>
-        <b-button variant="dark" :to=" '/orders/' + order">Detail</b-button>
+        <b-button variant="dark" :to=" '/orders/' + order">More Detail</b-button>
       </td>
     </tr>
+
   </table>
 
 
@@ -26,9 +33,6 @@
 import axios from "axios";
 export default {
   name: 'OrderListing',
-  props: {
-    order: Object
-  },
   computed: {
     items: function() {
       return this.$root.$data.cart.items || [];
@@ -40,6 +44,9 @@ export default {
       }
       return sum
     }
+  },
+  props: {
+    order: Object
   },
   data: function() {
     return {
@@ -57,4 +64,8 @@ export default {
 
 
 <style scoped>
+.option-image {
+  max-height: 75px;
+  max-width: 150px;
+}
 </style>

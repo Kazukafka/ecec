@@ -95,7 +95,7 @@ export default {
         optionCode: this.selectedOption.code,
         optionImage:this.selectedOption.image,
         price: this.selectedOption.price,
-        total: this.selectedOption.price *this.qty
+        total: this.selectedOption.price * this.qty
     }
     )
     this.$root.$data.saveCart();

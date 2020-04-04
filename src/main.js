@@ -41,7 +41,7 @@ const router = new VueRouter({
       component: OrderListing
     },
     {
-      path: '/order/:orderId',
+      path: '/orders/:orderId',
       component: OrderDetail
     }
   ],
