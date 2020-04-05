@@ -18,7 +18,7 @@
         <td>Quantity : {{ item.qty }}</td>
         </div>
       <td>
-        <b-button variant="dark" :to=" '/orders/' + order">More Detail</b-button>
+        <b-button variant="dark" :to=" '/orders/' + index">Detail</b-button>
       </td>
     </tr>
 
@@ -54,7 +54,7 @@ export default {
     }
   },
   mounted() {
-    axios.get("https://euas.person.ee/user/orders")
+    axios.get("https://euas.person.ee/user/orders/")
       .then(response => {
         this.orders = response.data;
       });
