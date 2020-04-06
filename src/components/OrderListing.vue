@@ -9,7 +9,13 @@
     </tr>
 
     <tr v-for="order in this.orders" :key="order.id">
-      <td>{{order}}</td>
+      <td>{{order.id}}</td>
+        <div v-for="item in order.items" :key="item.productId">
+          <img :src="item.optionImage" class="option-image" />
+          <td>$:{{item.price}}</td>
+          <td>Quantity:{{item.qty}}</td>
+        </div>
+
 
       <td>
         <b-button variant="dark" :to=" '/orders/' + order.id">Detail</b-button>

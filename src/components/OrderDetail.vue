@@ -9,16 +9,21 @@
       <th>Amount</th>
     </tr>
 
-    <tr v-for="item in this.orders" :key="item.id">
-    <td>
-      <img :src="item.optionImage" class="option-image" />
-    </td>
-    <td>{{ item.price }}</td>
-    <td>{{ item.qty }}</td>
-    <td>{{ item.total }}</td>
+    <tr v-for="(item, index) in this.order.items" :key="item.productId + '_' + index">
+      <td>
+        <img :src="item.optionImage" class="option-image" />
+      </td>
+      <td>{{ item.price }}</td>
+      <td>{{ item.qty }}</td>
+      <td>{{ item.total }}</td>
     </tr>
-
-
+    <tr class="total-row">
+      <td>TOTAL:</td>
+      <td></td>
+      <td></td>
+      <td>{{ total }}</td>
+      <td></td>
+    </tr>
   </table>
 
 
@@ -42,24 +47,19 @@ export default {
       return sum
     }
   },
-  props: {
-    order: Object
-  },
-  data: function(){
-    return{
-      product:{},
-      selectedOption: {},
-      qty:1,
+  data: function() {
+    return {
+      order:{}
     }
   },
   mounted() {
-  axios
-  .get("https://euas.person.ee/orders/"+ this.$route.params.orderId)
-  .then(response =>{
-    this.orders = response.data;
-  }).catch(error =>{
-    console.log(error);
-  })
+    axios
+      .get("https://euas.person.ee/user/orders/" + this.$route.params.orderId)
+      .then(response => {
+        this.order = response.data;
+      }).catch(error => {
+        console.log(error);
+      })
   }
 }
 </script>
