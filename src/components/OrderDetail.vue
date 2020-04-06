@@ -22,7 +22,6 @@
       <td></td>
       <td></td>
       <td>{{ total }}</td>
-      <td></td>
     </tr>
   </table>
 
