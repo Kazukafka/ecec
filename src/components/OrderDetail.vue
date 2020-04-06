@@ -17,12 +17,6 @@
       <td>{{ item.qty }}</td>
       <td>{{ item.total }}</td>
     </tr>
-    <tr class="total-row">
-      <td>TOTAL:</td>
-      <td></td>
-      <td></td>
-      <td>{{ total }}</td>
-    </tr>
   </table>
 
 
@@ -37,13 +31,6 @@ export default {
   computed: {
     items: function() {
       return this.$root.$data.cart.items || [];
-    },
-    total: function() {
-      let sum = 0
-      for (const item of this.items) {
-        sum += item.total
-      }
-      return sum
     }
   },
   data: function() {
