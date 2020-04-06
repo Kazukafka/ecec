@@ -3,17 +3,19 @@
   <h2>Order Detail</h2>
   <table class="table">
     <tr>
-      <th>OrderId</th>
       <th>Product</th>
       <th>Price</th>
       <th>qty</th>
       <th>Amount</th>
     </tr>
 
-    <tr v-for="order in this.orders" :key="order.id">
-      <td>{{order}}</td>
-      <td>{{test}}</td>
-
+    <tr v-for="item in this.orders" :key="item.id">
+    <td>
+      <img :src="item.optionImage" class="option-image" />
+    </td>
+    <td>{{ item.price }}</td>
+    <td>{{ item.qty }}</td>
+    <td>{{ item.total }}</td>
     </tr>
 
 
@@ -43,22 +45,22 @@ export default {
   props: {
     order: Object
   },
-  data: function() {
-    return {
-      orders: []
+  data: function(){
+    return{
+      product:{},
+      selectedOption: {},
+      qty:1,
     }
   },
   mounted() {
-    axios.get("https://euas.person.ee/user/orders/" + this.$route.params.orderId)
-      .then(response => {
-        this.orders = response.data;
-      });
-    axios.get("https://euas.person.ee/user/orders/")
-      .then(response => {
-        this.test = response.data;
-      });
+  axios
+  .get("https://euas.person.ee/orders/"+ this.$route.params.orderId)
+  .then(response =>{
+    this.orders = response.data;
+  }).catch(error =>{
+    console.log(error);
+  })
   }
-
 }
 </script>
 

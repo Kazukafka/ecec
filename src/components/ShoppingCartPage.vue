@@ -61,7 +61,7 @@ export default {
 
     orderNow: function() {
       let data = this.$root.$data
-
+      console.log(this.$root.$data.cart);
       axios.post("https://euas.person.ee/user/carts/" + this.$root.$data.cart.id + "/orders/",
         this.$root.$data.cart).then(function() {
         data.reinitCart();

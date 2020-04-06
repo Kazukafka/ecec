@@ -4,7 +4,7 @@
         <b-card
            :title="product.title"
            :img-src="product.image"
-           :img-alt="Image"
+           img-alt="Image"
            img-top
            tag="article"
            style="max-width: 20rem;"

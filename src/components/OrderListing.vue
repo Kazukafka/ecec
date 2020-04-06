@@ -8,17 +8,11 @@
       <th>Action</th>
     </tr>
 
-    <tr v-for="(order, index) in this.orders" :key="order.id">
-      <td>{{index}}</td>
-        <div v-for="item in order.items" :key="item.productId">
-        <td>
-          <img :src="item.optionImage" class="option-image" />
-        </td>
-        <td>Price : {{ item.price }}</td>
-        <td>Quantity : {{ item.qty }}</td>
-        </div>
+    <tr v-for="order in this.orders" :key="order.id">
+      <td>{{order}}</td>
+
       <td>
-        <b-button variant="dark" :to=" '/orders/' + index">Detail</b-button>
+        <b-button variant="dark" :to=" '/orders/' + order.id">Detail</b-button>
       </td>
     </tr>
 
@@ -34,9 +28,6 @@ import axios from "axios";
 export default {
   name: 'OrderListing',
   computed: {
-    items: function() {
-      return this.$root.$data.cart.items || [];
-    },
     total: function() {
       let sum = 0
       for (const item of this.items) {
