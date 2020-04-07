@@ -1,6 +1,7 @@
 <template>
 <div class="OrderListing">
   <h2>Order Detail</h2>
+  <b-alert show variant="success" v-if="this.$route.query.success">Thank you, Submitted Order Success!!!</b-alert>
   <table class="table">
     <tr>
       <th>Product</th>
@@ -17,6 +18,14 @@
       <td>{{ item.qty }}</td>
       <td>{{ item.total }}</td>
     </tr>
+
+    <tr class="total-row">
+      <td>TOTAL:</td>
+      <td></td>
+      <td></td>
+      <td>{{ total }}</td>
+      <td></td>
+    </tr>
   </table>
 
 
@@ -30,12 +39,19 @@ export default {
   name: 'OrderListing',
   computed: {
     items: function() {
-      return this.$root.$data.cart.items || [];
+      return this.$root.$data.cart.order.items || [];
+    },
+    total: function() {
+      let sum = 0
+      for (const item of this.order.items) {
+        sum += item.total
+      }
+      return sum
     }
   },
   data: function() {
     return {
-      order:{}
+      order: {}
     }
   },
   mounted() {

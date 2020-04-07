@@ -1,6 +1,6 @@
 <template>
 <div class="ProductPanel">
-  <h1>{{ title }}</h1>
+  <h3>{{ title }}</h3>
   {{ categoryAlias }}
   <b-card-group deck>
     <ProductCard :product="product" v-for="product in products" :key="product.id" />

@@ -1,11 +1,10 @@
 <template>
-<div class="header">
+<b-nav>
   E-Commerce Platform
-  <b-link to="/">HOME</b-link>
-  <b-link to="/cart">ShoppingCart</b-link>
-  <b-link to="/order">My Order</b-link>
-
-</div>
+  <b-nav-item to="/">HOME</b-nav-item>
+  <b-nav-item to="/cart">ShoppingCart</b-nav-item>
+  <b-nav-item to="/order">My Order</b-nav-item>
+</b-nav>
 </template>
 
 

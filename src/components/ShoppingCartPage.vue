@@ -1,7 +1,8 @@
 <template>
 <div class="shopping-cart-page">
   <h2>ShoppingCart</h2>
-  <table class="table">
+  <div v-if="!items.length">Your ShoppingCart is Empty, add more items!</div>
+  <table class="table" v-if="items.length">
     <tr>
       <th>Product</th>
       <th>Price</th>
@@ -61,9 +62,11 @@ export default {
 
     orderNow: function() {
       let data = this.$root.$data
+      let router = this.$router
       console.log(this.$root.$data.cart);
       axios.post("https://euas.person.ee/user/carts/" + this.$root.$data.cart.id + "/orders/",
         this.$root.$data.cart).then(function() {
+        router.push("/orders/" + data.cart.id + '?success=true')
         data.reinitCart();
       })
     }

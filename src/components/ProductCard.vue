@@ -46,6 +46,7 @@ export default {
     }
     )
     this.$root.$data.saveCart();
+    //this.$emit('cart-updated')
   }
 }
 }
